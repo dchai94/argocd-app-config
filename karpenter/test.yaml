@@ -1,1 +1,4 @@
-clusterName: "test"
+clusterName: "aws-sg-platform-prod-eks-observability-002"
+clusterEndpoint: "https://47EF2DD2D2FEA780463E5C582E37ECCB.sk1.ap-southeast-1.eks.amazonaws.com"
+serviceAccount.annotations."eks\.amazonaws\.com/role-arn": "arn:aws:iam::963626856932:role/default1-eks-node-group"
+aws.defaultInstanceProfile: "KarpenterNodeInstanceProfile-aws-sg-platform-prod-eks-observability-002"
