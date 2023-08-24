@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: karpenter
-  namespace: karpenter
+  namespace: argocd
 spec:
   project: default
   source:
@@ -11,7 +11,9 @@ spec:
     path: karpenter
     #chart: karpenter
     helm:
-	releaseName: karpenter
+       releaseName: karpenter
+       valueFiles:
+       - test.yaml
   destination: 
     server: https://kubernetes.default.svc
     namespace: karpenter
