@@ -15,8 +15,8 @@ spec:
     helm:
        releaseName: karpenter
        valueFiles:
-       #- test.yaml
-       - values.yaml
+       - test.yaml
+       #- values.yaml
   destination: 
     server: https://kubernetes.default.svc
     namespace: karpenter
