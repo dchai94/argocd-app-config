@@ -167,7 +167,7 @@ settings:
   # -- AWS-specific configuration values
   aws:
     # -- Cluster name.
-    clusterName: ""
+    clusterName: "aws-sg-platform-prod-eks-observability-002"
     # -- Cluster endpoint. If not set, will be discovered during startup (EKS only)
     clusterEndpoint: ""
     # -- The default instance profile to use when launching nodes
