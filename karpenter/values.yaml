@@ -20,6 +20,8 @@ serviceAccount:
   name: ""
   # -- Additional annotations for the ServiceAccount.
   annotations: {}
+# -- Specifies additional rules for the core ClusterRole.
+additionalClusterRoleRules: []
 serviceMonitor:
   # -- Specifies whether a ServiceMonitor should be created.
   enabled: false
@@ -62,7 +64,7 @@ dnsConfig: {}
 # -- Node selectors to schedule the pod to nodes with labels.
 nodeSelector:
   kubernetes.io/os: linux
-# -- Affinity rules for scheduling the pod.
+# -- Affinity rules for scheduling the pod. If an explicit label selector is not provided for pod affinity or pod anti-affinity one will be created from the pod selector labels.
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
@@ -70,7 +72,10 @@ affinity:
         - matchExpressions:
             - key: karpenter.sh/provisioner-name
               operator: DoesNotExist
-# -- topologySpreadConstraints to increase the controller resilience
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - topologyKey: "kubernetes.io/hostname"
+# -- Topology spread constraints to increase the controller resilience by distributing pods across the cluster zones. If an explicit label selector is not provided one will be created from the pod selector labels.
 topologySpreadConstraints:
   - maxSkew: 1
     topologyKey: topology.kubernetes.io/zone
@@ -89,25 +94,40 @@ extraVolumes: []
 #         audience: sts.amazonaws.com
 #         expirationSeconds: 86400
 #         path: token
-
 controller:
-  # -- Controller image.
-  image: "public.ecr.aws/karpenter/controller:v0.16.3@sha256:68db4f092cf9cc83f5ef9e2fbc5407c2cb682e81f64dfaa700a7602ede38b1cf"
+  image:
+    # -- Repository path to the controller image.
+    repository: public.ecr.aws/karpenter/controller
+    # -- Tag of the controller image.
+    tag: v0.29.2
+    # -- SHA256 digest of the controller image.
+    digest: sha256:bac5ea470c09df21eb3742cf9448e9b806138ed5b6321d4e04697bbdf122eac6
   # -- SecurityContext for the controller container.
   securityContext: {}
   # -- Additional environment variables for the controller pod.
   env: []
   # - name: AWS_REGION
   #   value: eu-west-1
-
+  envFrom: []
   # -- Resources for the controller pod.
-  resources:
-    requests:
-      cpu: 1
-      memory: 1Gi
-    limits:
-      cpu: 1
-      memory: 1Gi
+  resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  #  requests:
+  #    cpu: 1
+  #    memory: 1Gi
+  #  limits:
+  #    cpu: 1
+  #    memory: 1Gi
+
+  # -- Controller outputPaths - default to stdout only
+  outputPaths:
+    - stdout
+  # -- Controller errorOutputPaths - default to stderr only
+  errorOutputPaths:
+    - stderr
   # -- Controller log level, defaults to the global log level
   logLevel: ""
   # -- Controller log encoding, defaults to the global log encoding
@@ -117,48 +137,60 @@ controller:
   # - name: aws-iam-token
   #   mountPath: /var/run/secrets/eks.amazonaws.com/serviceaccount
   #   readOnly: true
-
-  # The maximum length of a batch window. The longer this is, the more pods we can consider for provisioning at one
+  # -- Additional sidecarContainer config
+  sidecarContainer: []
+  # -- Additional volumeMounts for the sidecar - this will be added to the volume mounts on top of extraVolumeMounts
+  sidecarVolumeMounts: []
+  metrics:
+    # -- The container port to use for metrics.
+    port: 8000
+  healthProbe:
+    # -- The container port to use for http health probe.
+    port: 8081
+webhook:
+  logLevel: error
+  # -- The container port to use for the webhook.
+  port: 8443
+# -- Global log level
+logLevel: debug
+# -- Global log encoding
+logEncoding: console
+# -- Global Settings to configure Karpenter
+settings:
+  # -- The maximum length of a batch window. The longer this is, the more pods we can consider for provisioning at one
   # time which usually results in fewer but larger nodes.
   batchMaxDuration: 10s
-  # The maximum amount of time with no new ending pods that if exceeded ends the current batching window. If pods arrive
+  # -- The maximum amount of time with no new ending pods that if exceeded ends the current batching window. If pods arrive
   # faster than this time, the batching window will be extended up to the maxDuration. If they arrive slower, the pods
   # will be batched separately.
   batchIdleDuration: 1s
-webhook:
-  # -- Webhook image.
-  image: "public.ecr.aws/karpenter/webhook:v0.16.3@sha256:96a2d9b06d6bc5127801f358f74b1cf2d289b423a2e9ba40c573c0b14b17dafa"
-  # -- SecurityContext for the webhook container.
-  securityContext: {}
-  # -- The container port to use for the webhook.
-  port: 8443
-  # -- Additional environment variables for the webhook pod.
-  env: []
-  # - name: AWS_REGION
-  #   value: eu-west-1
-
-  # -- Resources for the webhook pod.
-  resources:
-    requests:
-      cpu: 200m
-      memory: 100Mi
-    limits:
-      cpu: 200m
-      memory: 100Mi
-  # -- Webhook log level, defaults to the global log level
-  logLevel: ""
-  # -- Webhook log encoding, defaults to the global log encoding
-  logEncoding: ""
-  # -- Additional volumeMounts for the webhook pod.
-  extraVolumeMounts: []
-# -- Global log level
-logLevel: debug
-# -- Gloabl log encoding
-logEncoding: console
-# -- Cluster name.
-clusterName: ""
-# -- Cluster endpoint.
-clusterEndpoint: ""
-aws:
-  # -- The default instance profile to use when launching nodes on AWS
-  defaultInstanceProfile: ""
+  # -- AWS-specific configuration values
+  aws:
+    # -- Cluster name.
+    clusterName: ""
+    # -- Cluster endpoint. If not set, will be discovered during startup (EKS only)
+    clusterEndpoint: ""
+    # -- The default instance profile to use when launching nodes
+    defaultInstanceProfile: ""
+    # -- If true then instances that support pod ENI will report a vpc.amazonaws.com/pod-eni resource
+    enablePodENI: false
+    # -- Indicates whether new nodes should use ENI-based pod density
+    # DEPRECATED: Use `.spec.kubeletConfiguration.maxPods` to set pod density on a per-provisioner basis
+    enableENILimitedPodDensity: true
+    # -- If true then assume we can't reach AWS services which don't have a VPC endpoint
+    # This also has the effect of disabling look-ups to the AWS pricing endpoint
+    isolatedVPC: false
+    # -- The VM memory overhead as a percent that will be subtracted from the total memory for all instance types
+    vmMemoryOverheadPercent: 0.075
+    # -- interruptionQueueName is disabled if not specified. Enabling interruption handling may
+    # require additional permissions on the controller service account. Additional permissions are outlined in the docs.
+    interruptionQueueName: ""
+    # -- The global tags to use on all AWS infrastructure resources (launch templates, instances, etc.) across node templates
+    tags:
+  # -- Feature Gate configuration values. Feature Gates will follow the same graduation process and requirements as feature gates
+  # in Kubernetes. More information here https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features
+  featureGates:
+    # -- driftEnabled is in ALPHA and is disabled by default.
+    # Setting driftEnabled to true enables the drift deprovisioner to watch for drift between currently deployed nodes
+    # and the desired state of nodes set in provisioners and node templates
+    driftEnabled: false
