@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: project
+  labels:
+    name: project
+    environment: nprod
+    owner: project
+spec:
+  destination:
+    namespace: argocd
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: project
+    repoURL: >-
+      https://github.com/dchai94/argocd-app-config.git
+    targetRevision: HEAD
+  project: project
+  syncPolicy:
+    automated: {}
+
