@@ -27,7 +27,7 @@ spec:
         - '2'
   limits:
     resources:
-      cpu: 1000
+      cpu: 1k
   providerRef:
     name: default
   consolidation: 
