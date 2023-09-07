@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - test/test.yaml
 - karpenter/karpenter.yaml
+- provisioner/provisioner.yaml
