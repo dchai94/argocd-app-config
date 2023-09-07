@@ -39,6 +39,8 @@ metadata:
   name: default
 spec:
   subnetSelector:
-    karpenter.sh/discovery: aws-sg-platform-prod-eks-observability-002
+    #karpenter.sh/discovery: aws-sg-platform-prod-eks-observability-002
+    Name: eksctl-eksdemo1-cluster/SubnetPrivateAPSOUTHEAST1A
   securityGroupSelector:
-    karpenter.sh/discovery: aws-sg-platform-prod-eks-observability-002
+    #karpenter.sh/discovery: aws-sg-platform-prod-eks-observability-002
+    Name: eks-cluster-sg-aws-sg-ekyc-eks-nonprod-001-1057948492
