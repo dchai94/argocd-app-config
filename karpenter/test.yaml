@@ -6,7 +6,7 @@ settings:
     defaultInstanceProfile: "KarpenterNodeInstanceProfile-aws-sg-platform-prod-eks-observability-002"
 serviceAccount:
   annotations:
-    eks.amazonaws.com/role-arn: "arn:aws:iam::963626856932:role/default1-eks-node-group"
+    eks.amazonaws.com/role-arn: "arn:aws:iam::963626856932:role/aws-sg-platform-prod-eks-iam-karpenter-esa"
 #serviceAccount.annotations.eks\.amazonaws\.com/role-arn: "arn:aws:iam::963626856932:role/default1-eks-node-group"
 #settings.aws.defaultInstanceProfile: "KarpenterNodeInstanceProfile-aws-sg-platform-prod-eks-observability-002"
 controller.resources:
