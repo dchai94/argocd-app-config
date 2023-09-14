@@ -4,3 +4,4 @@ resources:
 - test/test.yaml
 - karpenter/karpenter.yaml
 - provisioner/provisioner.yaml
+- harbor/harbor.yaml
