@@ -16,7 +16,7 @@ spec:
         app: "harbor-kustomize"
         environment: 'prod'
     spec:
-      project: observability
+      project: default
       syncPolicy:
         # Disable auto-sync
         # automated: {}
