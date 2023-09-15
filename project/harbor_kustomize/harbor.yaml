@@ -24,7 +24,7 @@ spec:
         - CreateNamespace=true
       source:
         repoURL: https://github.com/dchai94/argocd-app-config.git
-        path: project/harbor_kustomization/harbor/overlays
+        path: project/harbor_kustomize/harbor/overlays
         targetRevision: HEAD
         plugin:
           name: kustomize-enable-helm
