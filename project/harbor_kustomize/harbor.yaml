@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: 
-  namespace: harbor
+  name: harbor-kustomize
+  namespace: argocd
 spec:
   generators:
   - list:
@@ -13,7 +13,7 @@ spec:
     metadata:
       name: '{{cluster}}-harbor'
       labels:
-        app: "harbor"
+        app: "harbor-kustomize"
         environment: 'prod'
     spec:
       project: observability
