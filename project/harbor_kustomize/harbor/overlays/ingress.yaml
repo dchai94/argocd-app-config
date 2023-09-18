@@ -13,6 +13,6 @@ metadata:
     heritage: Helm
     release: harbor
   name: harbor-ingress
-  namespace: harbor
+  #namespace: harbor
 spec:
   ingressClassName: nginx
