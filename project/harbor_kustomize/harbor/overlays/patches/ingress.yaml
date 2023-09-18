@@ -3,5 +3,12 @@ kind: Ingress
 metadata:
   name: harbor-ingress
   namespace: harbor
+  labels:
+    app: harbor
+    argocd.argoproj.io/instance: aws-platform-prod-observability-001-harbor
+    chart: harbor
+    component: redis
+    heritage: Helm
+    release: harbor
 spec:
   ingressClassName: nginx
