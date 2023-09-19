@@ -9,6 +9,7 @@ helmCharts:
   repo: https://helm.goharbor.io
   valuesInline:
     replicas: 2
+    externalURL: argocd.example.com
 # - name: grafana
 #   includeCRDs: true
 #   namespace: default
