@@ -16,8 +16,7 @@ metadata:
   #namespace: harbor
 spec:
   tls:
-  - $patch: delete
-    hosts:
-    - $patch: delete
-      #argocd.example.com
+  - hosts:
+    - argocd.example.com
     secretName: harbor-ingress
+    $patch: delete
