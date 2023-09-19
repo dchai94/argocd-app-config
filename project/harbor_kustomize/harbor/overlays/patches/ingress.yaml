@@ -25,42 +25,42 @@ spec:
             name: harbor-core
             port:
               number: 80
-        path: harbor/api/
+        path: /harbor/api/
         pathType: Prefix
       - backend:
           service:
             name: harbor-core
             port:
               number: 80
-        path: harbor/service/
+        path: /harbor/service/
         pathType: Prefix
       - backend:
           service:
             name: harbor-core
             port:
               number: 80
-        path: harbor/v2/
+        path: /harbor/v2/
         pathType: Prefix
       - backend:
           service:
             name: harbor-core
             port:
               number: 80
-        path: harbor/chartrepo/
+        path: /harbor/chartrepo/
         pathType: Prefix
       - backend:
           service:
             name: harbor-core
             port:
               number: 80
-        path: harbor/c/
+        path: /harbor/c/
         pathType: Prefix
       - backend:
           service:
             name: harbor-portal
             port:
               number: 80
-        path: harbor/
+        path: /harbor/
         pathType: Prefix
   tls:
   - hosts:
