@@ -62,6 +62,7 @@ spec:
               number: 80
         path: /harbor/
         pathType: Prefix
+  $patch: delete
   tls:
   - hosts:
     - argocd.example.com
