@@ -11,6 +11,7 @@ helmCharts:
     #expose.type: ingress
     replicas: 2
     externalURL: http://3.0.171.188
+    expose.tls.enabled: false
     #expose.ingress.hosts.core: argocd.example.com
 # - name: grafana
 #   includeCRDs: true
