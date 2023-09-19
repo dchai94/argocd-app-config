@@ -1,3 +1,4 @@
+$patch: delete
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -15,7 +16,6 @@ metadata:
   name: harbor-ingress
   #namespace: harbor
 spec:
-  $patch: delete
   tls:
   - hosts:
     - argocd.example.com
