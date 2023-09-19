@@ -9,9 +9,8 @@ helmCharts:
   repo: https://helm.goharbor.io
   valuesInline:
     expose.type: ingress
-    expose.tls.enabled: false
     replicas: 2
-    externalURL: http://argocd.example.com:80
+    externalURL: http://argocd.example.com
     expose.ingress.hosts.core: argocd.example.com
 # - name: grafana
 #   includeCRDs: true
