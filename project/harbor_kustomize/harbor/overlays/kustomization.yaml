@@ -5,3 +5,4 @@ bases:
 
 patches:
 - path: patches/ingress.yaml
+- path: patches/delete-ingress.yaml
