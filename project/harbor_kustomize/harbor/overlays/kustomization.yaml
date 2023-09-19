@@ -4,4 +4,4 @@ bases:
 - ../base
 
 patches:
-- path: ./ingress.yaml
+- path: patches/ingress.yaml

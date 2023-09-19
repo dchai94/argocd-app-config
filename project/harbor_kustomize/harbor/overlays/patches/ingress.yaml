@@ -1,6 +1,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  annotations:
+    ingress.kubernetes.io/proxy-body-size: '0'
+    ingress.kubernetes.io/ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/proxy-body-size: '0'
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
   labels:
     app: harbor
     argocd.argoproj.io/instance: aws-platform-prod-observability-001-harbor
@@ -11,3 +16,53 @@ metadata:
   #namespace: harbor
 spec:
   ingressClassName: nginx
+  rules:
+  - host: argocd.example.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: harbor-core
+            port:
+              number: 80
+        path: harbor/api/
+        pathType: Prefix
+      - backend:
+          service:
+            name: harbor-core
+            port:
+              number: 80
+        path: harbor/service/
+        pathType: Prefix
+      - backend:
+          service:
+            name: harbor-core
+            port:
+              number: 80
+        path: harbor/v2/
+        pathType: Prefix
+      - backend:
+          service:
+            name: harbor-core
+            port:
+              number: 80
+        path: harbor/chartrepo/
+        pathType: Prefix
+      - backend:
+          service:
+            name: harbor-core
+            port:
+              number: 80
+        path: harbor/c/
+        pathType: Prefix
+      - backend:
+          service:
+            name: harbor-portal
+            port:
+              number: 80
+        path: harbor/
+        pathType: Prefix
+  tls:
+  - hosts:
+    - argocd.example.com
+    secretName: harbor-ingress
