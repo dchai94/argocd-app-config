@@ -15,6 +15,7 @@ metadata:
   name: harbor-ingress
   #namespace: harbor
 spec:
+  $patch: delete
   tls:
   - $patch: delete
     hosts:
