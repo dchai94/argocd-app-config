@@ -6,9 +6,9 @@ resources:
 patches:
 - path: patches/ingress.yaml
 - path: patches/harbor-portal-cm.yaml
-- target:
-    kind: Ingress
-    name: harbor-ingress
-  # patch: |-
-  #   - op: remove
-  #     path: /spec/tls
+# - target:
+#     kind: Ingress
+#     name: harbor-ingress
+#   patch: |-
+#     - op: remove
+#       path: /spec/tls
