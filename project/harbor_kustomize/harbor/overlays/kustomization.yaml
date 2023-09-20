@@ -9,6 +9,6 @@ patches:
 - target:
     kind: Ingress
     name: harbor-ingress
-  patch: |-
-    - op: remove
-      path: /spec/tls
+  # patch: |-
+  #   - op: remove
+  #     path: /spec/tls
