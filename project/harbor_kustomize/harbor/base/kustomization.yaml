@@ -8,10 +8,11 @@ helmCharts:
   version: 1.13.0
   repo: https://helm.goharbor.io
   valuesInline:
-    #expose.type: ingress
+    expose.type: ingress
     replicas: 2
     #externalURL: http://3.0.171.188
     externalURL: https://argocd.example.com
+    expose.tls.certSource: server
     #expose.tls.enabled: false
     expose.ingress.hosts.core: argocd.example.com
 # - name: grafana
