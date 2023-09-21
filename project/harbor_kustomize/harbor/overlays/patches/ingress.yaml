@@ -62,3 +62,7 @@ spec:
               number: 80
         path: /harbor/
         pathType: Prefix
+  tls:
+  - hosts:
+    - argocd.example.com
+    secretName: server
