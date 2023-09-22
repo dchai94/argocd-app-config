@@ -12,3 +12,17 @@ patches:
 #   patch: |-
 #     - op: remove
 #       path: /spec/tls
+- target:
+    kind: Deployment
+    name: harbor-jobservice
+  patch: |-
+    - op: replace
+      path: /spec/strategy/type
+      value: Recreate
+- target:
+    kind: Deployment
+    name: harbor-registry
+  patch: |-
+    - op: replace
+      path: /spec/strategy/type
+      value: Recreate
