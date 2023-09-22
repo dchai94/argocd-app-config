@@ -23,8 +23,8 @@ helmCharts:
         s3: 
           region: ap-southeast-1
           bucket: window-server-2016
-          accesskey: ASIA6AXFC6HSDNUU547U
-          secretkey: nqqLuTLWLiYEaXCjTB5h8EauHWcgaxnCVdOhgClC
+          accesskey: AKIA6AXFC6HSJ4AOWCWN
+          secretkey: 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
 # - name: grafana
 #   includeCRDs: true
 #   namespace: default
