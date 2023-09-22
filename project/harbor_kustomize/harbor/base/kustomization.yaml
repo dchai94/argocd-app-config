@@ -18,6 +18,7 @@ helmCharts:
           core: argocd.example.com
     persistence:
       imageChartStorage:
+        type: s3
         disableredirect: true
         s3: 
           region: ap-southeast-1
