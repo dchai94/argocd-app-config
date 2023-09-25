@@ -4,10 +4,10 @@ resources:
 - aws-provider-installer.yaml
 
 helmCharts:
-- name: secrets-store-csi-driver
+- name: csi-secrets-store
   includeCRDs: true
   namespace: kube-system
-  releaseName: secrets-store-csi-driver
+  releaseName: csi-secrets-store
   version: 1.3.0
   repo: https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
   valuesInline:

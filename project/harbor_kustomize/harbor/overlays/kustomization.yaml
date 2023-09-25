@@ -12,27 +12,27 @@ patches:
 #   patch: |-
 #     - op: remove
 #       path: /spec/tls
-- target:
-    kind: Deployment
-    name: harbor-jobservice
-  patch: |-
-    - op: replace
-      path: /spec/strategy/type
-      value: Recreate
-    - op: replace
-      path: /spec/template/spec/containers/0/image
-      value: test0
+# - target:
+#     kind: Deployment
+#     name: harbor-jobservice
+#   patch: |-
+#     - op: replace
+#       path: /spec/strategy/type
+#       value: Recreate
+#     - op: replace
+#       path: /spec/template/spec/containers/0/image
+#       value: test0
     
-- target:
-    kind: Deployment
-    name: harbor-registry
-  patch: |-
-    - op: replace
-      path: /spec/strategy/type
-      value: Recreate
-    - op: replace
-      path: /spec/template/spec/containers/0/image
-      value: test0
-    - op: replace
-      path: /spec/template/spec/containers/1/image
-      value: test1
+# - target:
+#     kind: Deployment
+#     name: harbor-registry
+#   patch: |-
+#     - op: replace
+#       path: /spec/strategy/type
+#       value: Recreate
+#     - op: replace
+#       path: /spec/template/spec/containers/0/image
+#       value: test0
+#     - op: replace
+#       path: /spec/template/spec/containers/1/image
+#       value: test1
