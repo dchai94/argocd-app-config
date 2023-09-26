@@ -12,7 +12,7 @@ helmCharts:
     expose:
       type: ingress
       tls: 
-        certSource: server
+        certSource: auto
       ingress: 
         hosts: 
           core: argocd.example.com
