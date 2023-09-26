@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - aws-provider-installer.yaml
-- secret-provider-class.yaml
+#- secret-provider-class.yaml
 
 helmCharts:
 - name: csi-secrets-store
