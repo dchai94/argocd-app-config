@@ -5,7 +5,7 @@ kind: Kustomization
 #- secret-provider-class.yaml
 
 helmCharts:
-- name: csi-secrets-store
+- name: secrets-store-csi-driver
   includeCRDs: true
   namespace: kube-system
   releaseName: csi-secrets-store
