@@ -36,3 +36,22 @@ patches:
 #     - op: replace
 #       path: /spec/template/spec/containers/1/image
 #       value: test1
+- target:
+    kind: Deployment
+    name: harbor-registry     
+  patch: |-
+    - op: add
+      path: /spec/template/spec/volumes/-
+      value:
+        name: secrets-store-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "iam-key-aws-secrets"
+    - op: add
+      path: /spec/template/spec/containers/0/volumeMounts
+      value: 
+        name: secrets-store-inline
+        mountPath: "/mnt/secrets-store"
+        readOnly: true
