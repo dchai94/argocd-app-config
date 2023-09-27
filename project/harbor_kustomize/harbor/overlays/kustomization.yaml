@@ -49,9 +49,9 @@ patches:
           readOnly: true
           volumeAttributes:
             secretProviderClass: "iam-key-aws-secrets"
-    # - op: add
-    #   path: /spec/template/spec/containers/0/volumeMounts
-    #   value: 
-    #     name: secrets-store-inline
-    #     mountPath: "/mnt/secrets-store"
-    #     readOnly: true
+    - op: add
+      path: /spec/template/spec/containers/0/volumeMounts/-
+      value: 
+        name: secrets-store-inline
+        mountPath: "/mnt/secrets-store"
+        readOnly: true
