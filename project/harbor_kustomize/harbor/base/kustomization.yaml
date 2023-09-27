@@ -23,7 +23,7 @@ helmCharts:
         s3: 
           region: ap-southeast-1
           bucket: window-server-2016
-          existingSecret: mysecret
+          #existingSecret: mysecret
           #accesskey: AKIA6AXFC6HSEKC5VTG4
           #secretkey: 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
     registry:
