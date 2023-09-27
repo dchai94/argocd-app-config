@@ -27,7 +27,7 @@ helmCharts:
           #accesskey: AKIA6AXFC6HSEKC5VTG4
           #secretkey: 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
     registry:
-      serviceAccountName: default
+      serviceAccountName: harbor
 # - name: grafana
 #   includeCRDs: true
 #   namespace: default
