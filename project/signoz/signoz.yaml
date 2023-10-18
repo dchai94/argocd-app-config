@@ -11,7 +11,8 @@ spec:
     #path: charts/podinfo
     targetRevision: HEAD
     path: project/signoz/overlays
-    plugin: kustomize-enable-helm
+    plugin: 
+	name: kustomize-enable-helm
   destination: 
     server: https://kubernetes.default.svc
     namespace: signoz
