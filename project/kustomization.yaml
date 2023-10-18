@@ -7,3 +7,4 @@ resources:
 #- harbor/harbor.yaml
 #- harbor_kustomize/harbor.yaml
 #- secrets-store-csi-driver-provider-aws/secrets-store-csi-driver-provider-aws.yaml
+- signoz/signoz.yaml
