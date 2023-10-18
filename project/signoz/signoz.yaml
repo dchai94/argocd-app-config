@@ -12,7 +12,7 @@ spec:
     targetRevision: HEAD
     path: project/signoz/overlays
     plugin: 
-	name: kustomize-enable-helm
+      name: kustomize-enable-helm
   destination: 
     server: https://kubernetes.default.svc
     namespace: signoz
