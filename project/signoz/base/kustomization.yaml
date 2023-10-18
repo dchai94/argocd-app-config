@@ -11,3 +11,4 @@ helmCharts:
     frontend:
       ingress:
         enabled: true
+        className: "nginx"
