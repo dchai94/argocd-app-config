@@ -7,14 +7,3 @@ helmCharts:
   releaseName: signoz
   version: 0.27.1
   repo: https://charts.signoz.io
-  valuesInline:
-    frontend:
-      ingress:
-	enabled: true
-	className: nginx
-	hosts:
-      	- host: frontend.signoz
-       	  paths:
-          - path: /
-            pathType: ImplementationSpecific
-            port: 3301
